@@ -1,5 +1,5 @@
 import { db } from "./db.js";
-import type { Alert } from "@shared/index";
+import type { Alert } from "../../shared/src/index.js";
 
 interface AlertRow {
   id: string;

@@ -1,6 +1,6 @@
 import * as XLSX from "xlsx";
-import type { Customer } from "@shared/index";
-import { CUSTOMER_STATUS_LABELS, CONTACT_MODE_LABELS } from "@shared/index";
+import type { Customer } from "../../shared/src/index.js";
+import { CUSTOMER_STATUS_LABELS, CONTACT_MODE_LABELS } from "../../shared/src/index.js";
 
 function fmtMoney(n?: number): string {
   if (n == null) return "";

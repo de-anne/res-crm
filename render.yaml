@@ -1,0 +1,28 @@
+# Render Blueprint for the CRM API (the backend only).
+# The web frontend is hosted separately on DreamHost (static files).
+#
+# How this is used: in the Render dashboard, "New +" -> "Blueprint", connect
+# the de-anne/res-crm repo, and Render reads this file to create the service.
+services:
+  - type: web
+    name: res-crm-api
+    runtime: node
+    plan: free
+    # Build the shared + server TypeScript into dist/
+    buildCommand: npm install && npm --prefix server install && npm --prefix server run build
+    startCommand: npm --prefix server start
+    # A persistent disk so the SQLite database survives restarts/redeploys.
+    disk:
+      name: crm-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: CRM_DATA_DIR
+        value: /var/data
+      - key: JWT_SECRET
+        generateValue: true   # Render generates a strong random secret
+      - key: CORS_ORIGIN
+        sync: false           # set this to your site, e.g. https://crm.anneneo.com
+      - key: PORT
+        value: 4000
+    healthCheckPath: /api/health

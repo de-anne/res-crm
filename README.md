@@ -56,6 +56,11 @@ create your account and you're in.
 
 See `server/README.md` and `web/README.md` for details on each package.
 
+## Deploying
+
+**Non-technical, step-by-step guide for DreamHost + Render:** see
+[`DEPLOY.md`](./DEPLOY.md). The sections below are the general reference.
+
 ## Deploying to your own web host
 
 The app has two parts: a **Node API** (`server`) and a **static web build**

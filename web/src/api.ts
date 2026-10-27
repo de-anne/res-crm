@@ -2,6 +2,16 @@ import type { Customer, CustomerInput, SearchParams, Alert } from "@shared/index
 
 const TOKEN_KEY = "crm_token";
 
+/**
+ * Base URL of the API.
+ * - In local dev / single-process hosting this stays empty, so requests go to
+ *   the same origin at "/api" (Vite proxies it to the local server).
+ * - For split hosting (static site on DreamHost + API on Render), set
+ *   VITE_API_BASE_URL at build time to the API origin, e.g.
+ *   "https://res-crm-api.onrender.com". We trim any trailing slash.
+ */
+const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
+
 export function getToken(): string | null {
   return localStorage.getItem(TOKEN_KEY);
 }
@@ -26,7 +36,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getToken();
   if (token) headers.set("Authorization", `Bearer ${token}`);
 
-  const res = await fetch(`/api${path}`, { ...options, headers });
+  const res = await fetch(`${API_BASE}/api${path}`, { ...options, headers });
   if (res.status === 401) {
     clearToken();
     throw new ApiError(401, "Session expired. Please log in again.");
@@ -115,7 +125,7 @@ export const api = {
     return request<Alert[]>(`/alerts${qs ? `?${qs}` : ""}`);
   },
   exportUrl(params: SearchParams): string {
-    return `/api/export${toQuery(params)}`;
+    return `${API_BASE}/api/export${toQuery(params)}`;
   },
   async downloadExport(params: SearchParams) {
     const token = getToken();

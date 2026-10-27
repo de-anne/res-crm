@@ -9,11 +9,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "outDir": "dist",
-    "rootDir": "..",
-    "baseUrl": ".",
-    "paths": {
-      "@shared/*": ["../shared/src/*"]
-    }
+    "rootDir": ".."
   },
   "include": ["src/**/*.ts", "../shared/src/**/*.ts"]
 }

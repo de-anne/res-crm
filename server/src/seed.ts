@@ -8,7 +8,7 @@
 import { initSchema } from "./db.js";
 import { registerUser, loginUser, countUsers } from "./auth.js";
 import { createCustomer } from "./customers.repo.js";
-import type { CustomerInput } from "@shared/index";
+import type { CustomerInput } from "../../shared/src/index.js";
 
 initSchema();
 

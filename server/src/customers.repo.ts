@@ -7,8 +7,8 @@ import type {
   Activity,
   SearchParams,
   CustomerStatus,
-} from "@shared/index";
-import { findDistrictForLocation, SG_DISTRICTS } from "@shared/index";
+} from "../../shared/src/index.js";
+import { findDistrictForLocation, SG_DISTRICTS } from "../../shared/src/index.js";
 
 interface Row {
   id: string;

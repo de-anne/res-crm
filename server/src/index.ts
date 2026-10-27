@@ -24,12 +24,18 @@ import {
 } from "./customers.repo.js";
 import { getAlerts } from "./alerts.js";
 import { buildWorkbook } from "./export.js";
-import type { SearchParams, CustomerStatus } from "@shared/index";
+import type { SearchParams, CustomerStatus } from "../../shared/src/index.js";
 
 initSchema();
 
 const app = express();
-app.use(cors());
+// CORS: if CORS_ORIGIN is set (comma-separated list of allowed site origins),
+// restrict to those; otherwise allow any origin (fine for a personal tool).
+const corsOrigins = (process.env.CORS_ORIGIN ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+app.use(cors(corsOrigins.length ? { origin: corsOrigins } : {}));
 app.use(express.json({ limit: "1mb" }));
 
 const PORT = Number(process.env.PORT) || 4000;
