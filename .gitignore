@@ -1,0 +1,19 @@
+node_modules/
+dist/
+build/
+*.log
+*.tsbuildinfo
+
+# SQLite database + local data
+server/data/
+*.sqlite
+*.sqlite-*
+
+# Env
+.env
+.env.local
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
